@@ -1,10 +1,11 @@
 import "./App.css";
+import Header from "./layouts/Header";
 
 function App() {
   return (
-    <>
-      <div className="text-3xl">Hello word</div>
-    </>
+    <div>
+      <Header />
+    </div>
   );
 }
 
