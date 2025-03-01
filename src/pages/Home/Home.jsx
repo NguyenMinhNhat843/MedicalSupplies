@@ -3,7 +3,7 @@ import BestProduct from "./BestProduct";
 
 const Home = () => {
   return (
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 pb-8">
       <div className="container mx-auto pt-8">
         {/* Banner */}
         <div className="">
