@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const ProductItem = ({ product }) => {
   const { image, name, price, unit, likes, sell } = product;
   return (
-    <div className="bg-white rounded-lg p-4 border-2 border-gray-200">
+    <Link
+      to="/product-detail"
+      className="bg-white rounded-lg p-4 border-2 border-gray-200"
+    >
       <div>
         <img src={image} alt="image product" className="h-50 mx-auto" />
       </div>
@@ -31,7 +35,7 @@ const ProductItem = ({ product }) => {
           Xem chi tiết
         </button>
       </div>
-    </div>
+    </Link>
   );
 };
 ProductItem.propTypes = {
