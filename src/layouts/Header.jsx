@@ -7,6 +7,7 @@ import {
 
 import bg_header from "../assets/bg_header.jpg";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -15,9 +16,9 @@ const Header = () => {
       style={{ backgroundImage: `url(${bg_header})` }}
     >
       {/* logo */}
-      <div className="w-25 h-full">
+      <Link to="/" className="w-25 h-full">
         <img src={logo} alt="logo" />
-      </div>
+      </Link>
       {/* search bar */}
       <div className="bg-white shadow-2xl rounded-full flex justify-between items-center w-1/2 pe-4">
         <input
