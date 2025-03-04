@@ -18,12 +18,12 @@ const ButtonAddToCart = ({ count }) => {
   };
   return (
     <div className="pt-4 mt-auto flex items-center justify-between">
-      <button
+      {/* <button
         type="text"
         className="py-4 me-2 w-full rounded-full bg-blue-600 text-white font-semibold cursor-pointer active:opacity-80"
       >
         Chọn mua
-      </button>
+      </button> */}
       <button
         onClick={() => handleAddToCart()}
         type="text"
