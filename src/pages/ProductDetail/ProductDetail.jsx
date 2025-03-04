@@ -14,7 +14,7 @@ const ProductDetail = () => {
   return (
     <div className="container mx-auto py-8">
       <ProductInfo product={p} />
-      <ProductDecription />
+      <ProductDecription product={p} />
     </div>
   );
 };

@@ -1,39 +1,50 @@
-const tabs = [
-  "Thành phần",
-  "Công dụng",
-  "Cách dùng",
-  "Tác dụng phụ",
-  "Lưu ý",
-  "Bảo quản",
-];
+import PropTypes from "prop-types";
+import { useState } from "react";
 
-const ProductDecription = () => {
+const ProductDecription = ({ product }) => {
+  const { usage, howToUse, description } = product;
+  const tabs = [
+    { label: "Mô tả", content: description || "Không có thông tin" },
+    { label: "Công dụng", content: usage || "Không có thông tin" },
+    { label: "Cách dùng", content: howToUse || "Không có thông tin" },
+  ];
+
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <div className=" mt-8 flex border-t border-slate-200">
       {/* tabs */}
       <div className="border-e border-slate-200" style={{ width: "30%" }}>
-        {tabs.map((tab) => {
+        {tabs.map((tab, index) => {
           return (
             <div
-              key={tab}
-              className="py-3 border-b border-slate-200 hover:bg-slate-100 rounded-lg ps-2 cursor-pointer"
+              key={tab.label}
+              className={`py-3 border-b border-slate-200 ps-2 cursor-pointer ${
+                activeTab === index
+                  ? "bg-blue-100 font-semibold"
+                  : "hover:bg-slate-100"
+              }`}
+              onClick={() => setActiveTab(index)}
             >
-              <button>{tab}</button>
+              <button>{tab.label}</button>
             </div>
           );
         })}
       </div>
-      <div className="ps-4 pt-4" style={{ width: "70%" }}>
-        <p className="font-bold text-xl">Mô tả sản phẩm</p>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-          rerum incidunt veniam delectus aliquid veritatis libero obcaecati
-          magnam officia fugit enim, rem nemo officiis consequuntur
-          necessitatibus? Cum dignissimos non inventore.
-        </p>
+      {/* Nội dung hiển thị */}
+      <div className="ps-4 pt-4 w-2/3">
+        <p className="font-bold text-xl">{tabs[activeTab].label}</p>
+        <p>{tabs[activeTab].content}</p>
       </div>
     </div>
   );
+};
+
+ProductDecription.propTypes = {
+  product: PropTypes.shape({
+    usage: PropTypes.string,
+    howToUse: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
 };
 
 export default ProductDecription;

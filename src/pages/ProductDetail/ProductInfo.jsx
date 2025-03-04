@@ -25,7 +25,7 @@ const ProductInfo = ({ product }) => {
       <div className="rounded-lg border border-slate-300 me-8">
         <img src={image} alt="image product" className="rounded-lg w-full" />
       </div>
-      <div className="" style={{ color: "#333" }}>
+      <div className="flex flex-col" style={{ color: "#333" }}>
         {/* Thương hiệu */}
         <p className="pb-2">
           Thương hiệu: <span className="text-blue-400">{brand}</span>
@@ -84,10 +84,8 @@ const ProductInfo = ({ product }) => {
         </div>
         {/* end: thông tin khác */}
 
-        {/* Chọn số lượng */}
-        <div className="py-4 flex items-center"></div>
         {/* button mua */}
-        <div className="pb-2">
+        <div className="pt-4">
           <button
             type="text"
             className="py-4 w-full rounded-full bg-blue-600 text-white font-semibold cursor-pointer"

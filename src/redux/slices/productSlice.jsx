@@ -5,6 +5,7 @@ const initialState = {
   products: products,
   productFilter: products,
   productSelected: null,
+  productFiltered: [],
 };
 
 const productSlice = createSlice({
@@ -31,6 +32,11 @@ const productSlice = createSlice({
         (p) => p.id === action.payload
       );
     },
+    filterProductByCategory: (state, action) => {
+      state.productFiltered = state.products.filter(
+        (p) => p.category_id === action.payload
+      );
+    },
   },
 });
 
@@ -40,5 +46,6 @@ export const {
   removeProduct,
   updateProduct,
   findProductById,
+  filterProductByCategory,
 } = productSlice.actions;
 export default productSlice.reducer;

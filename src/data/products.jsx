@@ -11,11 +11,13 @@ const products = [
     quantity_per_box: 100,
     usage: "Bổ sung vitamin C, tăng cường sức đề kháng, chống oxy hóa.",
     category: "Thực phẩm chức năng",
+    category_id: "C001",
     likes: 5000,
     sell: 1000,
     description:
       "Vitamin C 500mg Nature Made là sản phẩm bổ sung vitamin C giúp tăng cường sức đề kháng, chống oxy hóa, giúp da sáng mịn và giảm nếp nhăn. Sản phẩm giúp cung cấp vitamin C cho cơ thể, giúp cơ thể khỏe mạnh, tăng cường sức đề kháng, chống oxy hóa, giúp da sáng mịn và giảm nếp nhăn. Vitamin C 500mg Nature Made giúp cung cấp vitamin C cho cơ thể, giúp cơ thể khỏe mạnh, tăng cường sức đề kháng, chống oxy hóa, giúp da sáng mịn và giảm nếp nhăn. Vitamin C 500mg Nature Made giúp cung cấp vitamin C cho cơ thể, giúp cơ thể khỏe mạnh, tăng cường sức đề kháng, chống oxy hóa, giúp da sáng mịn và giảm nếp nhăn.",
     origin: "USA",
+    howToUse: "Uống 1 viên/ngày sau bữa ăn chính.",
   },
   {
     id: "002",
@@ -27,11 +29,13 @@ const products = [
     quantity_per_box: 60,
     usage: "Hỗ trợ sức khỏe tim mạch, cải thiện trí nhớ, tốt cho mắt.",
     category: "Thực phẩm chức năng",
+    category_id: "C002",
     likes: 5000,
     sell: 1000,
     description:
       "Omega-3 Fish Oil Blackmores là sản phẩm hỗ trợ sức khỏe tim mạch, cải thiện trí nhớ và tốt cho mắt. Sản phẩm cung cấp axit béo omega-3 giúp giảm nguy cơ mắc các bệnh tim mạch, cải thiện chức năng não bộ và hỗ trợ sức khỏe mắt. Omega-3 Fish Oil Blackmores giúp duy trì sức khỏe tổng thể và tăng cường trí nhớ.",
     origin: "Việt Nam",
+    howToUse: "Uống 1-2 viên/ngày sau bữa ăn chính.",
   },
   {
     id: "003",
@@ -42,6 +46,7 @@ const products = [
     brand: "Vital Proteins",
     quantity_per_box: 30,
     category: "Thực phẩm chức năng",
+    category_id: "C003",
     usage: "Hỗ trợ làm đẹp da, giúp da căng mịn và giảm nếp nhăn.",
     likes: 5000,
     sell: 1000,
@@ -49,6 +54,7 @@ const products = [
       "Collagen Peptide Vital Proteins là sản phẩm hỗ trợ làm đẹp da, giúp da căng mịn và giảm nếp nhăn. Sản phẩm cung cấp collagen giúp tăng cường độ đàn hồi cho da, giảm thiểu nếp nhăn và làm da sáng mịn. Collagen Peptide Vital Proteins giúp duy trì làn da trẻ trung và khỏe mạnh.",
 
     origin: "Thái Lan",
+    howToUse: "Uống 1-2 viên/ngày sau bữa ăn chính.",
   },
   {
     id: "004",
@@ -59,12 +65,15 @@ const products = [
     brand: "Innisfree",
     quantity_per_box: 10,
     category: "Thực phẩm chức năng",
+    category_id: "C004",
     usage: "Cung cấp độ ẩm cho da, giúp da sáng mịn và thư giãn.",
     likes: 5000,
     sell: 1000,
     description:
       "Mặt nạ dưỡng ẩm Innisfree là sản phẩm cung cấp độ ẩm cho da, giúp da sáng mịn và thư giãn. Sản phẩm chứa các thành phần tự nhiên giúp dưỡng ẩm sâu, làm dịu da và mang lại cảm giác thư giãn. Mặt nạ dưỡng ẩm Innisfree giúp duy trì làn da mềm mại và khỏe mạnh.",
     origin: "Lào",
+    howToUse:
+      "Thoa mặt nạ lên da sạch, để trong 15-20 phút, sau đó rửa sạch lại",
   },
   {
     id: "005",
@@ -75,12 +84,14 @@ const products = [
     brand: "Gaviscon",
     quantity_per_box: 24,
     category: "Thực phẩm chức năng",
+    category_id: "C002",
     usage: "Giảm trào ngược dạ dày, hỗ trợ tiêu hóa và giảm đau dạ dày.",
     likes: 5000,
     sell: 1000,
     origin: "Anh",
     description:
       "Thuốc hỗ trợ dạ dày Gaviscon là sản phẩm giúp giảm trào ngược dạ dày, hỗ trợ tiêu hóa và giảm đau dạ dày. Sản phẩm chứa các thành phần giúp trung hòa axit dạ dày, giảm triệu chứng trào ngược và đau dạ dày. Thuốc hỗ trợ dạ dày Gaviscon giúp duy trì sức khỏe tiêu hóa và giảm các triệu chứng khó chịu liên quan đến dạ dày.",
+    howToUse: "Uống 1-2 viên sau bữa ăn và trước khi đi ngủ.",
   },
 ];
 
