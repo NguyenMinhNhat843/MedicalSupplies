@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-// import img_p from "../../assets/image_products/P09468_1_l.avif";
+// component
+import ButtonAddToCart from "../../components/button/ButtonAddToCart";
 
 const ProductInfo = ({ product }) => {
   const { image, name, price, unit, brand, category, description, origin } =
@@ -85,14 +86,10 @@ const ProductInfo = ({ product }) => {
         {/* end: thông tin khác */}
 
         {/* button mua */}
-        <div className="pt-4">
-          <button
-            type="text"
-            className="py-4 w-full rounded-full bg-blue-600 text-white font-semibold cursor-pointer"
-          >
-            Chọn mua
-          </button>
+        <div className="mt-auto">
+          <ButtonAddToCart count={count} />
         </div>
+        {/* end: button mua */}
       </div>
     </div>
   );

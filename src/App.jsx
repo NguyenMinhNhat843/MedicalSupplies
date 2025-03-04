@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import SearchResult from "./pages/SearchResult/SearchResult";
 import SearchBar from "./layouts/SearchBar";
+import Cart from "./pages/Cart/Cart";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/product-detail/:id" element={<ProductDetail />} />
           <Route path="/search-result/:slug" element={<SearchResult />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
 
         <Footer />
