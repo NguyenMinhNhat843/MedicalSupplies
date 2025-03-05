@@ -7,17 +7,31 @@ const CartProduct = () => {
   const carts = useSelector((state) => state.cart.cartItems);
 
   return (
-    <>
+    <div className="overflow-x-auto">
       {carts.length > 0 ? (
-        carts.map((cart) => {
-          return <ProductItem2 key={cart.id} product={cart} />;
-        })
+        <table className="w-full">
+          <thead>
+            <tr className="bg-gray-200 text-left">
+              <th className=" px-4 py-2">Hình ảnh</th>
+              <th className="px-4 py-2">Sản phẩm</th>
+              <th className="px-4 py-2">Đơn giá</th>
+              <th className="px-4 py-2">Số lượng</th>
+              <th className="px-4 py-2">Tổng tiền</th>
+              <th className="px-4 py-2">Xóa</th>
+            </tr>
+          </thead>
+          <tbody>
+            {carts.map((cart) => (
+              <ProductItem2 key={cart.id} product={cart} />
+            ))}
+          </tbody>
+        </table>
       ) : (
-        <p className="text-2xl text-center text-slate-400">
-          Không có sản phẩm nào cả
+        <p className="text-2xl text-center text-slate-400 mt-4">
+          Không có sản phẩm nào trong giỏ hàng
         </p>
       )}
-    </>
+    </div>
   );
 };
 

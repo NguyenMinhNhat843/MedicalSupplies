@@ -1,7 +1,5 @@
-// const formatMoney = (money) => {
-//     return (
+const formatMoney = (money) => {
+  return money.toLocaleString("vi-VN");
+};
 
-//     )
-// }
-
-// export default formatMoney;
+export default formatMoney;

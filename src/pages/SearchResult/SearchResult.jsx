@@ -1,6 +1,6 @@
 import FilterSideBar from "./FilterSideBar";
-// import ProductItem from "../../components/ProductItem";
 import { useLocation } from "react-router-dom";
+import ProductList from "./ProductList";
 
 const SearchResult = () => {
   const location = useLocation();
@@ -13,8 +13,12 @@ const SearchResult = () => {
       <h1 className="font-bold text-2xl py-4">{category.name}</h1>
 
       <div className="flex flex-row justify-between">
-        <FilterSideBar />
-        <div></div>
+        <div>
+          <FilterSideBar />
+        </div>
+        <div className="grow ps-8">
+          <ProductList />
+        </div>
       </div>
     </div>
   );

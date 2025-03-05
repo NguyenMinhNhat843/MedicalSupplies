@@ -15,6 +15,12 @@ const ButtonAddToCart = ({ count }) => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(new_p));
+
+    // cuộn lên đầu trang
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   return (
     <div className="pt-4 mt-auto flex items-center justify-between">

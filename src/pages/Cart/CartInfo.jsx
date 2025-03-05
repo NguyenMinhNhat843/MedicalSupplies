@@ -1,22 +1,27 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+//untils
+import formatMoney from "../../untils/formatMoney";
+
 const CartInfo = () => {
   const carts = useSelector((state) => state.cart.cartItems);
-
+  // console.log(carts);
   return (
     <>
       <p className="font-bold text-xl">
         Tổng tiền:{" "}
         <span className="text-red-600">
-          {carts.reduce((total, item) => {
-            return total + item.price * item.quantity;
-          }, 0)}{" "}
+          {formatMoney(
+            carts.reduce((total, item) => {
+              return total + item.price * item.quantity;
+            }, 0)
+          )}{" "}
           đ
         </span>
       </p>
       <p className="font-bold text-xl pt-4">
-        Khuyến mãi: <span className="text-red-600">0 đ</span>
+        Khuyến mãi: <span className="text-red-600">{formatMoney(0)} đ</span>
       </p>
       <div className="cursor-pointer">
         <Link

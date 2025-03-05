@@ -34,7 +34,7 @@ const FilterSidebar = () => {
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-lg">Bộ lọc</h2>
         <button
-          className="text-blue-600 text-sm"
+          className="text-blue-600 text-sm cursor-pointer"
           onClick={() => {
             setSelectedPriceRange(null);
             setSelectedBrands([]);
