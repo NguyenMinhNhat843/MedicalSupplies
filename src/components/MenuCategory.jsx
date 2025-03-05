@@ -1,10 +1,14 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import createSlug from "../untils/createSlug";
 
+// redux
+import { filterProductByCategory } from "../redux/slices/productSlice";
+
 const MenuCategory = ({ setIsOpen }) => {
+  const dispatch = useDispatch();
   const categorys = useSelector((state) => state.category.categorys);
   const [categorySelected, setCategorySelected] = useState(null);
 
@@ -12,6 +16,7 @@ const MenuCategory = ({ setIsOpen }) => {
 
   // Khi chọn danh mục con → điều hướng + đóng menu
   const handleNavigate = (category) => {
+    dispatch(filterProductByCategory(category.id));
     navigate("/search-result/" + createSlug(category.name), {
       state: { category },
     });

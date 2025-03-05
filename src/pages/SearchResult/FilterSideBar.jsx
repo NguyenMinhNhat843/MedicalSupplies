@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+// redux
+import { useDispatch } from "react-redux";
+import { filterProductByPrice } from "../../redux/slices/productSlice";
+
 const brands = [
   "Contour Plus",
   "Freestyle Libre",
@@ -15,17 +19,25 @@ const priceRanges = [
 ];
 
 const FilterSidebar = () => {
+  const dispatch = useDispatch();
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
   const [selectedBrands, setSelectedBrands] = useState([]);
 
   const handlePriceRangeChange = (index) => {
     setSelectedPriceRange(index);
+    dispatch(filterProductByPrice(priceRanges[index]));
   };
 
   const handleBrandChange = (brand) => {
     setSelectedBrands((prev) =>
       prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
     );
+  };
+
+  const handleReset = () => {
+    setSelectedPriceRange(null);
+    dispatch(filterProductByPrice({ min: 0, max: Infinity }));
+    setSelectedBrands([]);
   };
 
   return (
@@ -35,10 +47,7 @@ const FilterSidebar = () => {
         <h2 className="font-bold text-lg">Bộ lọc</h2>
         <button
           className="text-blue-600 text-sm cursor-pointer"
-          onClick={() => {
-            setSelectedPriceRange(null);
-            setSelectedBrands([]);
-          }}
+          onClick={handleReset}
         >
           Thiết lập lại
         </button>
@@ -94,23 +103,33 @@ const FilterSidebar = () => {
       </div>
       {/* end: thương hiệu */}
 
-      {/* Xuất xứ */}
-      {/* <div className="mt-6">
-        <h3 className="font-semibold mb-2">Xuất xứ ({selectedCountries.length})</h3>
+      {/* Thương hiệu */}
+      <div className="mt-6">
+        <h3 className="font-semibold mb-2">
+          Xuất xứ ({selectedBrands.length})
+        </h3>
+        <input
+          type="text"
+          className="border p-2 rounded w-full"
+          placeholder="Nhập tên thương hiệu"
+        />
         <div className="mt-2">
-          {countries.map((country) => (
-            <label key={country} className="flex items-center space-x-2 cursor-pointer mt-1">
+          {brands.map((brand) => (
+            <label
+              key={brand}
+              className="flex items-center space-x-2 cursor-pointer mt-1"
+            >
               <input
                 type="checkbox"
-                checked={selectedCountries.includes(country)}
-                onChange={() => handleCountryChange(country)}
+                checked={selectedBrands.includes(brand)}
+                onChange={() => handleBrandChange(brand)}
               />
-              <span>{country}</span>
+              <span>{brand}</span>
             </label>
           ))}
         </div>
-      </div> */}
-      {/* end: xuất xứ */}
+      </div>
+      {/* end: thương hiệu */}
     </div>
   );
 };

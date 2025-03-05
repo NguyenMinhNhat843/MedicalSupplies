@@ -5,7 +5,7 @@ const initialState = {
   products: products,
   productFilter: products,
   productSelected: null,
-  productFiltered: [],
+  productsFiltered: [],
 };
 
 const productSlice = createSlice({
@@ -33,8 +33,13 @@ const productSlice = createSlice({
       );
     },
     filterProductByCategory: (state, action) => {
-      state.productFiltered = state.products.filter(
+      state.productsFiltered = state.products.filter(
         (p) => p.category_id === action.payload
+      );
+    },
+    filterProductByPrice: (state, action) => {
+      state.productsFiltered = state.products.filter(
+        (p) => p.price >= action.payload.min && p.price <= action.payload.max
       );
     },
   },
@@ -47,5 +52,6 @@ export const {
   updateProduct,
   findProductById,
   filterProductByCategory,
+  filterProductByPrice,
 } = productSlice.actions;
 export default productSlice.reducer;
