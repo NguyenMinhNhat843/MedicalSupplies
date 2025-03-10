@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faList } from "@fortawesome/free-solid-svg-icons";
 import bg_searchbar from "../assets/bg_searchbar.webp";
-import MenuCategory from "../components/MenuCategory";
+import MenuCategory from "../components/Menu/MenuCategory";
 import { useEffect, useRef, useState } from "react";
 
 const SearchBar = () => {

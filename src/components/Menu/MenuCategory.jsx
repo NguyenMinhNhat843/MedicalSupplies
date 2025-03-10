@@ -2,10 +2,10 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import createSlug from "../untils/createSlug";
+import createSlug from "../../untils/createSlug";
 
 // redux
-import { filterProductByCategory } from "../redux/slices/productSlice";
+import { filterProductByCategory } from "../../redux/slices/productSlice";
 
 const MenuCategory = ({ setIsOpen }) => {
   const dispatch = useDispatch();

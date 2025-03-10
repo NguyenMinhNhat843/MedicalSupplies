@@ -10,8 +10,33 @@ import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+// commponent
+import MenuUser from "../components/Menu/MenuUser";
+import { useEffect, useRef, useState } from "react";
+
 const Header = () => {
   const carts = useSelector((state) => state.cart.cartItems);
+
+  // Đóng / mở Menu user
+  const [isOpenMenuUser, setIsOpenMenuUser] = useState(false);
+  const handleOpenMenuUser = () => {
+    setIsOpenMenuUser(!isOpenMenuUser);
+  };
+
+  // Đóng / mở MenuUser khi click outside
+  const menuUserRef = useRef();
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuUserRef.current && !menuUserRef.current.contains(e.target)) {
+        setIsOpenMenuUser(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // test
   const user = useSelector((state) => state.auth.user);
 
@@ -30,9 +55,10 @@ const Header = () => {
         </Link>
       </div>
       {/*  */}
-      <div className="flex justify-between items-center cursor-pointer">
+      <div className="flex justify-between items-center cursor-pointer relative">
         {user ? (
           <>
+            {/* ========== Sau khi login ========== */}
             <div className="flex justify-center items-center h-8 w-8 me-4">
               <FontAwesomeIcon
                 icon={faCartShopping}
@@ -45,7 +71,12 @@ const Header = () => {
                 className="bg-slate-100 p-4 rounded-full h-full w-full"
               />
             </div>
-            <div className="flex justify-between items-center cursor-pointer">
+            {/* Avatar + MenuUser */}
+            <div
+              className=" relative flex justify-between items-center cursor-pointer"
+              onClick={handleOpenMenuUser}
+              ref={menuUserRef}
+            >
               <div className="border border-slate-200 rounded-full flex items-center justify-center shadow-2xl">
                 <img
                   src="/img_aboutUs.jpg"
@@ -54,10 +85,17 @@ const Header = () => {
                 />
               </div>
               <FontAwesomeIcon icon={faAngleDown} className="ps-2" />
+              {isOpenMenuUser && (
+                <div className="absolute top-12 right-0 z-[999]">
+                  <MenuUser />
+                </div>
+              )}
             </div>
+            {/* ========== End: Sau khi login ========== */}
           </>
         ) : (
           <>
+            {/* Trước khi login */}
             <Link
               to={"/cart"}
               className=" flex items-center text-white text-md pe-4 bg-green-500 rounded-lg py-2 px-4 cursor-pointer me-4"
