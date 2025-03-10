@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/Logo_Medical_Supplies.png";
+import logo from "../../assets/Logo.jpg";
 import auth_right from "../../assets/auth_right.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { SiApple } from "react-icons/si";

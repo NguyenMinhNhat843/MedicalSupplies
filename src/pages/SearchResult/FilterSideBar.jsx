@@ -11,6 +11,9 @@ const brands = [
   "Ogcare",
   "Omron",
 ];
+
+const countries = ["Việt Nam", "Mỹ", "Nhật Bản", "Hàn Quốc", "Trung Quốc"];
+
 const priceRanges = [
   { label: "Dưới 100.000 ₫", min: 0, max: 100000 },
   { label: "100.000 ₫ - 300.000 ₫", min: 100000, max: 300000 },
@@ -108,13 +111,8 @@ const FilterSidebar = () => {
         <h3 className="font-semibold mb-2">
           Xuất xứ ({selectedBrands.length})
         </h3>
-        <input
-          type="text"
-          className="border p-2 rounded w-full"
-          placeholder="Nhập tên thương hiệu"
-        />
         <div className="mt-2">
-          {brands.map((brand) => (
+          {countries.map((brand) => (
             <label
               key={brand}
               className="flex items-center space-x-2 cursor-pointer mt-1"
