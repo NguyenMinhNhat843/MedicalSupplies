@@ -19,9 +19,9 @@ const Register = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       {/* Bên trái - Form đăng ký */}
-      <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12">
+      <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12 py-6">
         <img src={logo} alt="Medical Supplies Logo" className="mb-4 w-24" />
         <h2 className="text-2xl font-bold mb-4">Create Your Nexus5 Account</h2>
 

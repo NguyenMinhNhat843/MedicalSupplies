@@ -7,21 +7,28 @@ import auth_right from "../../assets/auth_right.jpg";
 import { FcGoogle } from "react-icons/fc";
 import { SiApple } from "react-icons/si";
 
+//redux
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/slices/authSlice";
+
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("abc@gmail.com");
+  const [password, setPassword] = useState("123456789");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(login({ email, password }));
     // Xử lý đăng nhập
     navigate("/");
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex">
       {/* Left Side - Login Form */}
-      <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12">
+      <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12 py-6">
         <img src={logo} alt="Medical Supplies Logo" className="mb-4 w-24" />
         <h2 className="text-2xl font-bold mb-4">Welcome Back to Nexus5</h2>
         <p className="text-gray-500 mb-6">
@@ -68,7 +75,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition"
+            className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition cursor-pointer"
           >
             Sign In
           </button>
@@ -127,6 +134,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      {/* end:  Right Side - Dashboard Image*/}
     </div>
   );
 };
