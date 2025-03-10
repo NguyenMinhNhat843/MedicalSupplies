@@ -6,7 +6,7 @@ const MenuUser = () => {
       <ul className="space-y-3">
         <li>
           <Link
-            to="/profile"
+            to="/account/info-user"
             className="block p-2 rounded-lg hover:bg-gray-100 transition"
           >
             Thông tin cá nhân
@@ -14,7 +14,7 @@ const MenuUser = () => {
         </li>
         <li>
           <Link
-            to="/my-orders"
+            to="/account/order-history"
             className="block p-2 rounded-lg hover:bg-gray-100 transition"
           >
             Đơn hàng của tôi
@@ -22,7 +22,7 @@ const MenuUser = () => {
         </li>
         <li>
           <Link
-            to="/address-book"
+            to="/account/address"
             className="block p-2 rounded-lg hover:bg-gray-100 transition"
           >
             Quản lý sổ địa chỉ
@@ -30,7 +30,7 @@ const MenuUser = () => {
         </li>
         <li>
           <Link
-            to="/change-password"
+            to="/account/change-password"
             className="block p-2 rounded-lg hover:bg-gray-100 transition"
           >
             Đổi mật khẩu
