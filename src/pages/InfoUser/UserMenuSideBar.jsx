@@ -11,7 +11,7 @@ const UserMenuSideBar = () => {
     { label: "Đơn hàng của tôi", icon: faUser, path: "/account/order-history" },
     { label: "Quản lý sổ địa chỉ", icon: faUser, path: "/account/address" },
     { label: "Đổi mật khẩu", icon: faUser, path: "/account/change-password" },
-    { label: "Đăng xuất", icon: faUser, path: "/logout" },
+    { label: "Đăng xuất", icon: faUser, path: "/" },
   ];
 
   return (

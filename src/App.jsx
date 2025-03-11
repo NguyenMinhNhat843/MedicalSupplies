@@ -24,8 +24,8 @@ import CreateNewPassword from "./pages/Auth/CreateNewPassword";
 // Account pages
 import InfoUser from "./pages/InfoUser";
 import ChangePassword from "./pages/ChangePassword";
-import ManagerOrder from "./pages/ManagerOrder";
-import ManagerLocation from "./pages/ManagerLocation";
+import ManagerOrder from "./pages/ManagerOrder/ManagerOrder";
+import ManagerLocation from "./pages/ManagerLocation/AddressBook";
 
 // Layout
 import SearchBar from "./layouts/SearchBar";
