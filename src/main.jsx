@@ -7,6 +7,8 @@ import Register from './pages/Auth/Register'
 import ForgotPassword from './pages/Auth/ForgotPassword'
 import CheckEmail from './pages/Auth/CheckEmail'
 import CreateNewPassword from './pages/Auth/CreateNewPassword'
+import AccountUser from './pages/AccountUser/AccountUser'
+import Dashboard from './pages/AdminUser/Dashboard'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -19,6 +21,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path='/check-email' element={<CheckEmail/>}/>
         <Route path='/create-new-password' element={<CreateNewPassword/>}/>
+        <Route path='/account-user' element={<AccountUser/>}></Route>
+        <Route path='/dashboard' element={<Dashboard/>}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
