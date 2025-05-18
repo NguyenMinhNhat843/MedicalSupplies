@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 
 const ProductDecription = ({ product }) => {
-  const { usage, howToUse, description } = product;
+  const { description, howToUse, usageProduct: usage } = product;
+
   const tabs = [
     { label: "Mô tả", content: description || "Không có thông tin" },
     { label: "Công dụng", content: usage || "Không có thông tin" },
@@ -41,8 +42,11 @@ const ProductDecription = ({ product }) => {
 
 ProductDecription.propTypes = {
   product: PropTypes.shape({
-    usage: PropTypes.string,
     howToUse: PropTypes.string,
+    preservation: PropTypes.string,
+    sideEffects: PropTypes.string,
+    usage: PropTypes.string,
+    ingredient: PropTypes.string,
     description: PropTypes.string,
   }).isRequired,
 };

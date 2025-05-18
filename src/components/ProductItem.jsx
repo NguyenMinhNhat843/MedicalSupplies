@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircleDollarToSlot,
+  faHeart,
+} from "@fortawesome/free-solid-svg-icons";
 //utils
 import formatMoney from "../untils/formatMoney";
 
@@ -8,6 +11,7 @@ import formatMoney from "../untils/formatMoney";
 import { useNavigate } from "react-router-dom";
 
 const ProductItem = ({ product }) => {
+  // console.log("Produt: ", product);
   const navigate = useNavigate();
 
   const handleSaveProductSelected = () => {
@@ -29,15 +33,18 @@ const ProductItem = ({ product }) => {
         {/* Giới hạn 2 dòng cho tên sản phẩm */}
         <p className="font-bold text-lg pt-4 line-clamp-2">{name}</p>
         <p className="text-blue-600 font-bold pt-2">
-          {formatMoney(price)} đ/{unit}
+          {formatMoney(price)} đ/{unit ? unit : "cái"}
         </p>
         {/* số lượt like + số lượng đã bán */}
         <div className="flex items-center justify-between pt-2">
           <div className="pe-4">
-            <FontAwesomeIcon icon={faHeart} className="pe-2" />
-            <span>{likes}</span>
+            <FontAwesomeIcon icon={faHeart} className="pe-2 text-red-600" />
+            <span>{likes ? likes : "100"} lượt thích</span>
           </div>
-          <span>Đã bán: {sell}</span>
+          <div>
+            <FontAwesomeIcon icon={faCircleDollarToSlot} className="pe-2" />
+            <span>Đã bán: {sell ? sell : "1000"}</span>
+          </div>
         </div>
       </div>
 

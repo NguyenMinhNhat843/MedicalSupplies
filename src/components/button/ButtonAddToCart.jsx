@@ -1,16 +1,13 @@
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
 import PropTypes from "prop-types";
 
-const ButtonAddToCart = ({ count }) => {
+const ButtonAddToCart = ({ count, product }) => {
   const dispatch = useDispatch();
-  const p = useSelector((state) => state.product.productSelected);
-
   const new_p = {
-    ...p,
+    ...product,
     quantity: count,
-    total: count * p.price,
+    total: count * product.price,
   };
 
   const handleAddToCart = () => {
@@ -42,6 +39,7 @@ const ButtonAddToCart = ({ count }) => {
 };
 ButtonAddToCart.propTypes = {
   count: PropTypes.number.isRequired,
+  product: PropTypes.object,
 };
 
 export default ButtonAddToCart;

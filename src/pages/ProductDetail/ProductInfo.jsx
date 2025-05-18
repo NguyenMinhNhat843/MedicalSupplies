@@ -8,8 +8,17 @@ import { useState } from "react";
 import ButtonAddToCart from "../../components/button/ButtonAddToCart";
 
 const ProductInfo = ({ product }) => {
-  const { image, name, price, unit, brand, category, description, origin } =
-    product;
+  const {
+    image,
+    name,
+    price,
+    unit,
+    brandOrigin: brand,
+    categories: categories,
+    manufacturer: manufacturer,
+    description,
+    origin,
+  } = product;
 
   const [count, setCount] = useState(1);
   const handleClickMinus = () => {
@@ -27,15 +36,12 @@ const ProductInfo = ({ product }) => {
         <img src={image} alt="image product" className="rounded-lg w-full" />
       </div>
       <div className="flex flex-col" style={{ color: "#333" }}>
-        {/* Thương hiệu */}
-        <p className="pb-2">
-          Thương hiệu: <span className="text-blue-400">{brand}</span>
-        </p>
         {/* Tên sản phâm */}
         <p className="font-bold text-2xl pb-2">{name}</p>
         {/* Giá */}
         <p className="text-blue-600 pb-2">
-          <span className="font-semibold text-lg">{price} đ</span> / {unit}
+          <span className="font-semibold text-lg">{price} đ</span> /{" "}
+          {unit ? unit : "Cái"}
         </p>
 
         {/* Thông tin khác */}
@@ -43,21 +49,31 @@ const ProductInfo = ({ product }) => {
           <span className="text-slate-500">Chọn đơn vị tính: </span>
           <div>
             <Link className="py-1 px-3 rounded-full border border-blue-400 hover:bg-blue-400 hover:text-white">
-              {unit}
+              {unit ? unit : "Cái"}
             </Link>
           </div>
 
           <span className="text-slate-500">Danh mục: </span>
-          <span className="text-blue-600">{category}</span>
+
+          <span className="text-blue-600">
+            {categories.length > 0
+              ? categories.map((category, index) => (
+                  <span key={index}>
+                    {category}
+                    {index < categories.length - 1 ? ", " : ""}
+                  </span>
+                ))
+              : "Chưa có danh mục"}
+          </span>
 
           <span className="text-slate-500">Mô tả ngắn: </span>
           <span>{description}</span>
 
           <span className="text-slate-500">Xuất xứ: </span>
-          <span>{origin}</span>
+          <span>{brand}</span>
 
           <span className="text-slate-500">Nhà sản xuất: </span>
-          <span>{brand}</span>
+          <span>{manufacturer}</span>
 
           <span className="text-slate-500">Chọn số lượng: </span>
           <div>
@@ -87,7 +103,7 @@ const ProductInfo = ({ product }) => {
 
         {/* button mua */}
         <div className="mt-auto">
-          <ButtonAddToCart count={count} />
+          <ButtonAddToCart count={count} product={product} />
         </div>
         {/* end: button mua */}
       </div>
@@ -95,18 +111,7 @@ const ProductInfo = ({ product }) => {
   );
 };
 ProductInfo.propTypes = {
-  product: PropTypes.shape({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    id: PropTypes.string,
-    brand: PropTypes.string,
-    price: PropTypes.number,
-    unit: PropTypes.string,
-    usage: PropTypes.string,
-    category: PropTypes.string,
-    description: PropTypes.string,
-    origin: PropTypes.string,
-  }).isRequired,
+  product: PropTypes.object,
 };
 
 export default ProductInfo;

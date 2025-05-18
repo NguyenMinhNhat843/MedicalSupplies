@@ -59,12 +59,23 @@ const Header = () => {
         {user ? (
           <>
             {/* ========== Sau khi login ========== */}
-            <div className="flex justify-center items-center h-8 w-8 me-4">
-              <FontAwesomeIcon
-                icon={faCartShopping}
-                className="bg-slate-100 p-4 rounded-full h-full w-full"
-              />
-            </div>
+            <Link
+              to={"/cart"}
+              className=" flex items-center text-white text-md pe-4 bg-green-500 rounded-lg py-2 px-4 cursor-pointer me-4"
+            >
+              <div className="relative">
+                <FontAwesomeIcon icon={faCartShopping} className="pe-4" />
+                {carts.length > 0 && (
+                  <div
+                    className="absolute bg-red-600 rounded-full flex justify-center items-center bottom-3 right-1"
+                    style={{ width: "20px", height: "20px" }}
+                  >
+                    <p className=" ">{carts.length}</p>
+                  </div>
+                )}
+              </div>
+              <p className="font-normal">Giỏ hàng</p>
+            </Link>
             <div className="mx-4 flex justify-center items-center h-8 w-8">
               <FontAwesomeIcon
                 icon={faBell}

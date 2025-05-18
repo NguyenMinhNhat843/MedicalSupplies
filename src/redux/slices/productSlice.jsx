@@ -1,11 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
-import products from "../../data/products";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import productApi from "../../api/productApi"; // Giả sử bạn đã có file productApi.js như mình hướng dẫn ở trên
+
+// AsyncThunk để fetch list products từ server
+export const fetchProducts = createAsyncThunk(
+  "product/fetchProducts",
+  async () => {
+    const response = await productApi.getAll();
+    return response; // response.data nếu cần tùy theo productApi bạn viết
+  }
+);
 
 const initialState = {
-  products: products,
-  productFilter: products,
+  products: [],
+  productFilter: [],
   productSelected: null,
   productsFiltered: [],
+  status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+  error: null,
 };
 
 const productSlice = createSlice({
@@ -42,6 +53,25 @@ const productSlice = createSlice({
         (p) => p.price >= action.payload.min && p.price <= action.payload.max
       );
     },
+    filterByMultifield: (state, action) => {
+      const { productsRaw, filter } = action.payload;
+      console.log("productsRaw", productsRaw);
+      console.log("filter", filter);
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchProducts.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.products = action.payload; // Lưu list products mới vào store
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      });
   },
 });
 
@@ -53,5 +83,7 @@ export const {
   findProductById,
   filterProductByCategory,
   filterProductByPrice,
+  filterByMultifield,
 } = productSlice.actions;
+
 export default productSlice.reducer;

@@ -1,67 +1,67 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import createSlug from "../../untils/createSlug";
+import categoryApi from "../../api/categoryApi";
 
 // redux
+import { useDispatch, useSelector } from "react-redux";
 import { filterProductByCategory } from "../../redux/slices/productSlice";
 
 const MenuCategory = ({ setIsOpen }) => {
-  const dispatch = useDispatch();
-  const categorys = useSelector((state) => state.category.categorys);
-  const [categorySelected, setCategorySelected] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadCategories = async () => {
+      const cached = localStorage.getItem("categories");
+
+      if (cached) {
+        // Dữ liệu đã lưu → lấy ra dùng
+        setCategories(JSON.parse(cached));
+        setLoading(false);
+      } else {
+        // Gọi API → lưu vào localStorage
+        try {
+          const data = await categoryApi.getAll();
+          setCategories(data);
+          localStorage.setItem("categories", JSON.stringify(data));
+          setLoading(false);
+        } catch (error) {
+          console.error("Error fetching categories:", error);
+        }
+      }
+    };
+
+    loadCategories();
+  }, []);
 
   const navigate = useNavigate();
-
-  // Khi chọn danh mục con → điều hướng + đóng menu
-  const handleNavigate = (category) => {
-    dispatch(filterProductByCategory(category.id));
-    navigate("/search-result/" + createSlug(category.name), {
-      state: { category },
-    });
-    setIsOpen(false); // Đóng menu khi chọn danh mục con
+  const handleClickCategory = (category) => {
+    navigate(`/search/${createSlug(category.name)}?id=${category.id}`);
   };
 
-  // Khi click danh mục cha → chỉ chọn nó, không đóng menu
-  const handleSelectCategory = (category) => {
-    setCategorySelected(categorySelected?.id === category.id ? null : category);
-  };
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
-    <div
-      className="flex bg-white shadow-2xl rounded-lg overflow-hidden"
-      style={{ width: "700px" }}
-    >
+    <div className="flex bg-white shadow-2xl rounded-lg overflow-hidden">
       {/* Danh mục lớn */}
-      <div className="border-e border-slate-300">
-        {categorys.map((category) => (
+      <div>
+        {categories.map((category) => (
           <div
             key={category.id}
-            className={`p-4 cursor-pointer ${
-              categorySelected?.id === category.id
-                ? "bg-slate-200"
-                : "hover:bg-slate-100"
-            }`}
-            onClick={() => handleSelectCategory(category)} // Chỉ chọn danh mục, không đóng menu
+            className="p-4 cursor-pointer hover:bg-slate-100"
+            onClick={() => handleClickCategory(category)}
           >
             <p>{category.name}</p>
           </div>
         ))}
-      </div>
-
-      {/* Danh mục con */}
-      <div className="grow">
-        {categorySelected &&
-          categorySelected.subcategories.map((sub) => (
-            <div
-              key={sub.name}
-              className="flex items-center px-4 py-4 cursor-pointer hover:bg-slate-200"
-              onClick={() => handleNavigate(sub)} // Khi click danh mục con thì navigate + đóng menu
-            >
-              <p className="ps-2">{sub.name}</p>
-            </div>
-          ))}
       </div>
     </div>
   );

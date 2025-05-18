@@ -99,7 +99,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/product-detail/:id" element={<ProductDetail />} />
-          <Route path="/search-result/:slug" element={<SearchResult />} />
+          <Route path="/search/:slug" element={<SearchResult />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
 
