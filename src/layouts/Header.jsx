@@ -15,7 +15,9 @@ import MenuUser from "../components/Menu/MenuUser";
 import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
-  const carts = useSelector((state) => state.cart.cartItems);
+  const token = localStorage.getItem("MStoken");
+  const cartsRedux = useSelector((state) => state.cart.cartItems);
+  // console.log("cartsRedux", cartsRedux);
 
   // Đóng / mở Menu user
   const [isOpenMenuUser, setIsOpenMenuUser] = useState(false);
@@ -65,12 +67,12 @@ const Header = () => {
             >
               <div className="relative">
                 <FontAwesomeIcon icon={faCartShopping} className="pe-4" />
-                {carts.length > 0 && (
+                {cartsRedux.length > 0 && (
                   <div
                     className="absolute bg-red-600 rounded-full flex justify-center items-center bottom-3 right-1"
                     style={{ width: "20px", height: "20px" }}
                   >
-                    <p className=" ">{carts.length}</p>
+                    <p className=" ">{cartsRedux.length}</p>
                   </div>
                 )}
               </div>
@@ -113,12 +115,12 @@ const Header = () => {
             >
               <div className="relative">
                 <FontAwesomeIcon icon={faCartShopping} className="pe-4" />
-                {carts.length > 0 && (
+                {cartsRedux.length > 0 && (
                   <div
                     className="absolute bg-red-600 rounded-full flex justify-center items-center bottom-3 right-1"
                     style={{ width: "20px", height: "20px" }}
                   >
-                    <p className=" ">{carts.length}</p>
+                    <p className=" ">{cartsRedux.length}</p>
                   </div>
                 )}
               </div>

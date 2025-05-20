@@ -26,8 +26,8 @@ const ProductItem2 = ({ product }) => {
     }
   };
 
-  const handleClickTrash = () => {
-    dispatch(removeFromCart(product.id));
+  const handleClickTrash = async () => {
+    dispatch(removeFromCart(product.id)); // cập nhật Redux
   };
 
   // Điều hướng đến trang chi tiết sản phẩm

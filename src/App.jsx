@@ -43,23 +43,24 @@ import UserMenuSideBar from "./pages/InfoUser/UserMenuSideBar";
 // Main layout component
 const MainLayout = () => {
   const location = useLocation();
-  const hideSearchBarRoutes = [
+  const hiddenRouter = [
     "/login",
     "/register",
     "/forgot-password",
     "/check-email",
     "/create-new-password",
   ];
-  const shouldHideSearchBar = hideSearchBarRoutes.includes(location.pathname);
+  const shouldHideHeaderFooter = hiddenRouter.includes(location.pathname);
+  const shouldHideSearchBar = hiddenRouter.includes(location.pathname);
 
   return (
     <>
-      <Header />
-      {!shouldHideSearchBar && <SearchBar />}
+      {!shouldHideHeaderFooter && <Header />}
+      {!shouldHideHeaderFooter && !shouldHideSearchBar && <SearchBar />}
       <div className="container mx-auto py-6 min-h-screen">
         <Outlet />
       </div>
-      <Footer />
+      {!shouldHideHeaderFooter && <Footer />}
     </>
   );
 };

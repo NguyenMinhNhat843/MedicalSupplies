@@ -1,24 +1,25 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-//untils
+// utils
 import formatMoney from "../../untils/formatMoney";
+import { useSelector } from "react-redux";
 
 const CartInfo = () => {
   const navigate = useNavigate();
-  const carts = useSelector((state) => state.cart.cartItems);
-
+  const reduxCarts = useSelector((state) => state.cart.cartItems);
   const handleClickButtonPayment = () => {
-    if (carts.length === 0) return;
+    if (reduxCarts.length === 0) return;
     navigate("/payment");
   };
+
   return (
     <>
       <p className="font-bold text-xl">
         Tổng tiền:{" "}
         <span className="text-red-600">
           {formatMoney(
-            carts.reduce((total, item) => {
+            reduxCarts.reduce((total, item) => {
               return total + item.price * item.quantity;
             }, 0)
           )}{" "}
@@ -32,7 +33,7 @@ const CartInfo = () => {
         <button
           onClick={handleClickButtonPayment}
           className={`w-full inline-block text-center rounded-lg bg-blue-600 py-4 text-xl text-white mt-8 cursor-pointer ${
-            carts.length === 0 ? "bg-gray-400 cursor-not-allowed" : ""
+            reduxCarts.length === 0 ? "bg-gray-400 cursor-not-allowed" : ""
           }`}
         >
           Thanh toán

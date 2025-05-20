@@ -12,6 +12,7 @@ const SearchResult = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const categoryId = searchParams.get("id");
+  const keyword = searchParams.get("keyword");
 
   // state
   const [products, setProducts] = useState([]);
