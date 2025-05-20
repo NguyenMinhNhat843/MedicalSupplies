@@ -13,7 +13,7 @@ import authReducer from "./slices/authSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart"], // chỉ lưu slice cart
+  whitelist: ["cart", "auth"], // chỉ lưu slice cart
 };
 
 // Combine các reducer
