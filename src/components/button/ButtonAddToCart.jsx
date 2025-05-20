@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/slices/cartSlice";
 import PropTypes from "prop-types";
+import cartApi from "../../api/cartApi";
 
 const ButtonAddToCart = ({ count, product }) => {
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const new_p = {
     ...product,
@@ -10,8 +12,16 @@ const ButtonAddToCart = ({ count, product }) => {
     total: count * product.price,
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(new_p));
+  const handleAddToCart = async () => {
+    try {
+      const response = await cartApi.addToCart(product.id, count);
+
+      if (response.status === 200) {
+        dispatch(addToCart(new_p));
+      }
+    } catch (error) {
+      console.error("Có lỗi khi thêm sản phẩm vào giỏ hàng:", error);
+    }
 
     // Cuộn lên đầu trang
     window.scrollTo({

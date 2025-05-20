@@ -28,10 +28,10 @@ const Login = () => {
         username: email,
         password: password,
       });
-      console.log("Đăng nhập thành công:", response.data);
 
       if (response.status === 200) {
         dispatch(login(response.data));
+        localStorage.setItem("user", JSON.stringify(response.data));
         navigate("/");
       }
     } catch (error) {
@@ -134,15 +134,20 @@ const Login = () => {
         />
 
         {/* Overlay Content */}
-        <div className=" absolute inset-0  bg-opacity-50 flex justify-center items-end">
-          <div className=" text-center px-8 pb-8">
-            <h2 className="text-3xl font-bold mb-4 text-black">
-              Transform Data into Cool Insights
+        <div className="absolute inset-0 bg-opacity-50 flex justify-center items-end">
+          <div className="text-center px-8 pb-8">
+            <h2 className="text-3xl font-bold mb-4 text-black/80">
+              Đồng hành cùng sức khỏe
             </h2>
-            <p className="text-gray-900 max-w-md">
-              Make informed decisions with our powerful analytics tools. Harness
-              the power of data to drive your business forward.
+            <p className="text-black/80 max-w-md">
+              Cung cấp thiết bị y tế uy tín, chính hãng.
             </p>
+            <button
+              onClick={() => navigate("/")}
+              className="bg-white mt-4 cursor-pointer text-black font-semibold px-6 py-2 rounded-lg hover:bg-gray-200 transition"
+            >
+              Tới trang chủ
+            </button>
           </div>
         </div>
       </div>

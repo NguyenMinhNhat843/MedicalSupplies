@@ -40,7 +40,7 @@ const ProductItem2 = ({ product }) => {
       {/* Hình ảnh sản phẩm */}
       <td className="px-4 py-2" onClick={handleSaveProductSelected}>
         <img
-          src={product.image}
+          src={product.image || "kSJLKJKLASJDLAS"}
           alt={product.name}
           className="h-16 w-16 object-cover"
         />
@@ -48,7 +48,7 @@ const ProductItem2 = ({ product }) => {
       {/* Tên sản phẩm */}
       <td className=" px-4 py-2">{product.name}</td>
       {/* Đơn giá */}
-      <td className="px-4 py-2">{formatMoney(product.price)} đ</td>
+      <td className="px-4 py-2">{formatMoney(product.price || 0)} đ</td>
       {/* Số lượng (có nút tăng/giảm) */}
       <td className="px-4 py-2 text-center">
         <div className="flex items-center justify-center gap-2">
@@ -71,7 +71,7 @@ const ProductItem2 = ({ product }) => {
       </td>
       {/* Tổng tiền */}
       <td className="px-4 py-2" style={{ width: "150px" }}>
-        {formatMoney(product.price * product.quantity)} đ
+        {formatMoney(product.price * product.quantity || 0)} đ
       </td>
       {/* Xóa sản phẩm */}
       <td
