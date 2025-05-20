@@ -7,6 +7,11 @@ const authApi = {
     const response = await axios.post(`${baseUrl}/auth/register`, userData);
     return response;
   },
+
+  login: async (userData) => {
+    const response = await axios.post(`${baseUrl}/auth/login`, userData);
+    return response;
+  },
 };
 
 export default authApi;

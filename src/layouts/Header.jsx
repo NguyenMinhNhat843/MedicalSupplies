@@ -15,7 +15,7 @@ import MenuUser from "../components/Menu/MenuUser";
 import { useEffect, useRef, useState } from "react";
 
 const Header = () => {
-  const token = localStorage.getItem("MStoken");
+  const user = useSelector((state) => state.auth.user);
   const cartsRedux = useSelector((state) => state.cart.cartItems);
   // console.log("cartsRedux", cartsRedux);
 
@@ -38,9 +38,6 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-  // test
-  const user = useSelector((state) => state.auth.user);
 
   return (
     <div className="flex justify-between items-center px-12 relative bg-white shadow-lg">

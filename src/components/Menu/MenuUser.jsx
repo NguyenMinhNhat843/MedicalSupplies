@@ -1,6 +1,13 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../redux/slices/authSlice";
 
 const MenuUser = () => {
+  const dispatch = useDispatch();
+  const handleLogout = async () => {
+    dispatch(logout());
+  };
+
   return (
     <div className="w-64 p-4 bg-white shadow-lg rounded-xl">
       <ul className="space-y-3">
@@ -38,12 +45,7 @@ const MenuUser = () => {
         </li>
         <li>
           <button
-            onClick={() => {
-              // Xử lý logout ở đây, ví dụ:
-              console.log("Đăng xuất");
-              // localStorage.removeItem("user"); // Nếu dùng localStorage
-              // window.location.href = "/login"; // Redirect về trang login
-            }}
+            onClick={handleLogout}
             className="w-full text-left p-2 rounded-lg hover:bg-gray-100 transition text-red-500 cursor-pointer"
           >
             Đăng xuất

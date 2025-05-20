@@ -11,18 +11,32 @@ import { SiApple } from "react-icons/si";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/slices/authSlice";
 
+import authApi from "../../api/authApi";
+
 const Login = () => {
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState("abc@gmail.com");
-  const [password, setPassword] = useState("123456789");
+  const [password, setPassword] = useState("123456");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
     // Xử lý đăng nhập
-    navigate("/");
+    try {
+      const response = await authApi.login({
+        username: email,
+        password: password,
+      });
+      console.log("Đăng nhập thành công:", response.data);
+
+      if (response.status === 200) {
+        dispatch(login(response.data));
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Đăng nhập thất bại:", error);
+    }
   };
 
   return (
@@ -30,18 +44,16 @@ const Login = () => {
       {/* Left Side - Login Form */}
       <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12 py-6">
         <img src={logo} alt="Medical Supplies Logo" className="mb-4 w-24" />
-        <h2 className="text-2xl font-bold mb-4">Welcome Back to Nexus5</h2>
-        <p className="text-gray-500 mb-6">
-          Enter your username and password to continue.
-        </p>
-
+        <h2 className="text-2xl font-bold mb-4">
+          Chào mừng bạn đến với Nexus5
+        </h2>
         <form className="w-full max-w-md" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your email address"
+              placeholder="Nhập email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -49,11 +61,11 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700">Password</label>
+            <label className="block text-gray-700">Mật khẩu</label>
             <input
               type="password"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter your password"
+              placeholder="Nhập mật khẩu"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -63,13 +75,13 @@ const Login = () => {
           <div className="flex justify-between items-center mb-4">
             <label className="flex items-center">
               <input type="checkbox" className="mr-2" />
-              Remember me
+              Nhớ mật khẩu
             </label>
             <span
               onClick={() => navigate("/forgot-password")}
               className="text-blue-500 hover:underline cursor-pointer"
             >
-              Forgot password?
+              Quên mật khẩu?
             </span>
           </div>
 
@@ -77,11 +89,11 @@ const Login = () => {
             type="submit"
             className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition cursor-pointer"
           >
-            Sign In
+            Đăng nhập
           </button>
 
           <div className="mt-4 text-center">
-            <p>Or login with</p>
+            <p>Hoặc đăng nhập với</p>
             <div className="flex justify-center mt-2">
               <button
                 type="button"
@@ -101,12 +113,12 @@ const Login = () => {
           </div>
 
           <p className="mt-4 text-center">
-            Don&apos;t have an account?{" "}
+            Bạn chưa có tài khoản?{" "}
             <span
               className="text-blue-500 cursor-pointer hover:underline"
               onClick={() => navigate("/register")}
             >
-              Register
+              Đăng ký ngay
             </span>
           </p>
         </form>
@@ -122,7 +134,7 @@ const Login = () => {
         />
 
         {/* Overlay Content */}
-        <div className=" absolute inset-0  bg-opacity-50 flex items-center justify-center items-end">
+        <div className=" absolute inset-0  bg-opacity-50 flex justify-center items-end">
           <div className=" text-center px-8 pb-8">
             <h2 className="text-3xl font-bold mb-4 text-black">
               Transform Data into Cool Insights
