@@ -4,6 +4,7 @@ import Path from "../../components/Path";
 import ProductInfo from "./ProductInfo";
 import ProductDecription from "./ProductDescription";
 import productApi from "../../api/productApi"; // Đảm bảo bạn đã import API đúng
+import ProductRelative from "./ProductRelated";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -33,7 +34,7 @@ const ProductDetail = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="bg-gradient-to-b from-cyan-100 via-white to-blue-50">
+    <div className="bg-gradient-to-t from-cyan-100 via-white to-blue-50">
       <div className="container mx-auto py-8 ">
         {/* Hiển thị thông tin sản phẩm nếu có */}
         {product && (
@@ -48,10 +49,12 @@ const ProductDetail = () => {
                 },
               ]}
             />
-            <h2 className="text-xl font-bold">{product.name}</h2>
-            <p>{product.description}</p>
             <ProductInfo product={product} />
             <ProductDecription product={product} />
+            {/* Sản phẩm liên quan */}
+            <div>
+              <ProductRelative categoryIds={product.categoryIds} />
+            </div>
           </>
         )}
       </div>
