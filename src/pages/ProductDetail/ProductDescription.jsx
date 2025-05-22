@@ -12,7 +12,7 @@ const ProductDecription = ({ product }) => {
 
   const [activeTab, setActiveTab] = useState(0);
   return (
-    <div className=" mt-8 flex border-t border-slate-200">
+    <div className=" bg-white rounded-lg shadow-md mt-8 flex border-t border-slate-200">
       {/* tabs */}
       <div className="border-e border-slate-200" style={{ width: "30%" }}>
         {tabs.map((tab, index) => {

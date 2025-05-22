@@ -15,16 +15,20 @@ const CartProduct = () => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await cartApi.getCart();
+        if (reduxCarts.length <= 0) {
+          const response = await cartApi.getCart();
 
-        if (response.status === 200) {
-          let cartItems = response.data.items;
-          // Làm phẳng mỗi item: merge product vào item chính
-          cartItems = cartItems.map(({ product, ...rest }) => ({
-            ...rest,
-            ...product,
-          }));
-          dispatch(setCartItems(cartItems));
+          if (response.status === 200) {
+            let cartItems = response.data.items;
+            // Làm phẳng mỗi item: merge product vào item chính
+            cartItems = cartItems.map(({ product, ...rest }) => ({
+              ...rest,
+              ...product,
+            }));
+            dispatch(setCartItems(cartItems));
+            setLoading(false);
+          }
+        } else {
           setLoading(false);
         }
       } catch (error) {

@@ -8,6 +8,7 @@ import productReducer from "./slices/productSlice";
 import categoryReducer from "./slices/categorySlice";
 import cartReducer from "./slices/cartSlice";
 import authReducer from "./slices/authSlice";
+import userReducer from "./slices/userSlice";
 
 // Cấu hình persist
 const persistConfig = {
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   category: categoryReducer,
   cart: cartReducer,
   auth: authReducer,
+  user: userReducer,
 });
 
 // Tạo reducer có persist

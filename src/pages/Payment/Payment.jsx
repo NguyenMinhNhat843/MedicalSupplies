@@ -1,13 +1,26 @@
 import { useState } from "react";
 import CartProduct from "../Cart/CartProduct";
-import CartInfo from "../Cart/CartInfo";
-
+import orderApi from "../../api/orderApi";
 // component
 import InfoUser from "./InfoUser";
 import MethodPay from "./MethodPay";
+import formatMoney from "../../untils/formatMoney";
+import { useSelector } from "react-redux";
 
 const Payment = () => {
   const [step, setStep] = useState(1);
+  const reduxCarts = useSelector((state) => state.cart.cartItems);
+  const handleOrder = async () => {
+    try {
+      const response = await orderApi.createOrder();
+      if (response && response.data) {
+        alert("Đặt hàng thành công!");
+        // Xử lý sau khi đặt hàng thành công, ví dụ: chuyển hướng đến trang khác
+      }
+    } catch (error) {
+      console.error("Có lỗi khi đặt hàng:", error);
+    }
+  };
 
   return (
     <div className="container mx-auto py-4">
@@ -62,7 +75,33 @@ const Payment = () => {
               <CartProduct />
             </div>
             <div className="pt-8">
-              <CartInfo />
+              <p className="font-bold text-xl">
+                Tổng tiền:{" "}
+                <span className="text-red-600">
+                  {formatMoney(
+                    reduxCarts.reduce((total, item) => {
+                      return total + item.price * item.quantity;
+                    }, 0)
+                  )}{" "}
+                  đ
+                </span>
+              </p>
+              <p className="font-bold text-xl pt-4">
+                Khuyến mãi:{" "}
+                <span className="text-red-600">{formatMoney(0)} đ</span>
+              </p>
+              <div className="cursor-pointer">
+                <button
+                  onClick={handleOrder}
+                  className={`w-full inline-block text-center rounded-lg bg-blue-600 py-4 text-xl text-white mt-8 cursor-pointer ${
+                    reduxCarts.length === 0
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : ""
+                  }`}
+                >
+                  Thanh toán
+                </button>
+              </div>
             </div>
             {/* Nút quay lại */}
             <div className="pt-4 flex justify-end">

@@ -57,7 +57,7 @@ const MainLayout = () => {
     <>
       {!shouldHideHeaderFooter && <Header />}
       {!shouldHideHeaderFooter && !shouldHideSearchBar && <SearchBar />}
-      <div className="container mx-auto py-6 min-h-screen">
+      <div className="min-h-screen">
         <Outlet />
       </div>
       {!shouldHideHeaderFooter && <Footer />}

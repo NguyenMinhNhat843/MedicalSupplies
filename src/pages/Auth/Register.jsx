@@ -73,33 +73,21 @@ const Register = () => {
   };
 
   return (
-    <div className="flex">
-      {/* Form đăng ký */}
-      <div className="w-1/2 flex flex-col justify-center items-center bg-white px-12 py-6">
-        <img src={logo} alt="Logo" className="mb-4 w-24" />
+    <div
+      className="min-h-screen bg-cover bg-center flex items-center justify-center relative"
+      style={{ backgroundImage: `url(${auth_right})` }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black opacity-40"></div>
 
-        <form className="w-full max-w-md" onSubmit={handleSubmit}>
-          {/* <div className="mb-2">
-            <label className="block text-gray-700">Họ và tên đệm</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-2">
-            <label className="block text-gray-700">Tên</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </div> */}
-          <div className="mb-2">
+      {/* Form */}
+      <div className="relative bg-white rounded-xl shadow-lg w-full max-w-md p-8 z-10">
+        <div className="flex justify-center mb-6">
+          <img src={logo} alt="Logo" className="w-16 h-16 object-contain" />
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
@@ -109,7 +97,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="block text-gray-700">Mật khẩu</label>
             <input
               type="password"
@@ -119,7 +107,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="mb-2">
+          <div className="mb-4">
             <label className="block text-gray-700">Nhập lại mật khẩu</label>
             <input
               type="password"
@@ -129,6 +117,7 @@ const Register = () => {
               required
             />
           </div>
+
           <button
             type="submit"
             disabled={isSubmitting}
@@ -137,7 +126,7 @@ const Register = () => {
             {isSubmitting ? "Đang xử lý..." : "ĐĂNG KÝ"}
           </button>
 
-          {/* Các tùy chọn khác */}
+          {/* Social buttons */}
           <div className="mt-4 text-center">
             <p>Hoặc đăng nhập với</p>
             <div className="flex justify-center mt-2">
@@ -155,6 +144,7 @@ const Register = () => {
               </button>
             </div>
           </div>
+
           <p className="mt-4 text-center">
             Bạn đã có tài khoản?{" "}
             <span
@@ -164,35 +154,19 @@ const Register = () => {
               Đăng nhập
             </span>
           </p>
+          <p className="mt-4 text-center text-sm">
+            Bạn không muốn tạo tài khoản?{" "}
+            <span
+              className="text-blue-500 cursor-pointer hover:underline"
+              onClick={() => navigate("/")}
+            >
+              Vào xem sản phẩm nào
+            </span>
+          </p>
         </form>
       </div>
 
-      {/* Bên phải */}
-      <div className="w-1/2 relative bg-gray-900 text-white">
-        <img
-          src={auth_right}
-          alt="auth"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-opacity-50 flex justify-center items-end">
-          <div className="text-center px-8 pb-8">
-            <h2 className="text-3xl font-bold mb-4 text-black/80">
-              Đồng hành cùng sức khỏe
-            </h2>
-            <p className="text-black/80">
-              Cung cấp thiết bị y tế uy tín, chính hãng.
-            </p>
-            <button
-              onClick={() => navigate("/")}
-              className="bg-white mt-4 text-black px-6 py-2 rounded-lg"
-            >
-              Tới trang chủ
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Modal nhập OTP */}
+      {/* OTP Modal */}
       {showOtpModal && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-96 shadow-lg">

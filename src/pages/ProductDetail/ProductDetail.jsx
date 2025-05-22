@@ -33,26 +33,28 @@ const ProductDetail = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container mx-auto py-8">
-      {/* Hiển thị thông tin sản phẩm nếu có */}
-      {product && (
-        <>
-          <Path
-            paths={[
-              { label: "Trang chủ", link: "/" },
-              { label: "Sản phẩm tốt nhất", link: "/best-products" },
-              {
-                label: "Máy đo huyết áp",
-                link: "/best-products/blood-pressure-monitor",
-              },
-            ]}
-          />
-          <h2 className="text-xl font-bold">{product.name}</h2>
-          <p>{product.description}</p>
-          <ProductInfo product={product} />
-          <ProductDecription product={product} />
-        </>
-      )}
+    <div className="bg-gradient-to-b from-cyan-100 via-white to-blue-50">
+      <div className="container mx-auto py-8 ">
+        {/* Hiển thị thông tin sản phẩm nếu có */}
+        {product && (
+          <>
+            <Path
+              paths={[
+                { label: "Trang chủ", link: "/" },
+                { label: "Sản phẩm tốt nhất", link: "/best-products" },
+                {
+                  label: "Máy đo huyết áp",
+                  link: "/best-products/blood-pressure-monitor",
+                },
+              ]}
+            />
+            <h2 className="text-xl font-bold">{product.name}</h2>
+            <p>{product.description}</p>
+            <ProductInfo product={product} />
+            <ProductDecription product={product} />
+          </>
+        )}
+      </div>
     </div>
   );
 };
