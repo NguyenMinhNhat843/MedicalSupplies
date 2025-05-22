@@ -29,14 +29,6 @@ const MenuUser = () => {
         </li>
         <li>
           <Link
-            to="/account/address"
-            className="block p-2 rounded-lg hover:bg-gray-100 transition"
-          >
-            Quản lý sổ địa chỉ
-          </Link>
-        </li>
-        <li>
-          <Link
             to="/account/change-password"
             className="block p-2 rounded-lg hover:bg-gray-100 transition"
           >

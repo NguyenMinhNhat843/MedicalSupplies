@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 const Payment = () => {
   const [step, setStep] = useState(1);
   const reduxCarts = useSelector((state) => state.cart.cartItems);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  console.log("userInfo", userInfo);
   const handleOrder = async () => {
     try {
       const response = await orderApi.createOrder();

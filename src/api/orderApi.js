@@ -5,6 +5,11 @@ const orderApi = {
     const response = await axiosInstance.post("/api/orders", orderData);
     return response;
   },
+
+  getOrderByToken: async () => {
+    const response = await axiosInstance.get(`/api/orders/order`);
+    return response;
+  },
 };
 
 export default orderApi;
