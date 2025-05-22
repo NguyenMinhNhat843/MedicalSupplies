@@ -12,6 +12,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const user = JSON.parse(localStorage.getItem("user")); // hoặc từ Redux nếu bạn dùng Redux
     if (user && user.token) {
+      console.log("Token:", user.token);
       config.headers.Authorization = `Bearer ${user.token}`;
     }
     return config;

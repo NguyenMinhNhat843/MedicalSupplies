@@ -1,4 +1,4 @@
-import Proptyes from "prop-types";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,33 +11,47 @@ import {
   decreaseQuantity,
 } from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
+import cartApi from "../api/cartApi"; // ✅ import cartApi
 
 const ProductItem2 = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleIncrease = () => {
-    dispatch(increaseQuantity(product.id));
+  const handleIncrease = async () => {
+    try {
+      await cartApi.increaseQuantity(product.id, 1);
+      dispatch(increaseQuantity(product.id));
+    } catch (error) {
+      console.error("Lỗi tăng số lượng:", error);
+    }
   };
 
-  const handleDecrease = () => {
+  const handleDecrease = async () => {
     if (product.quantity > 1) {
-      dispatch(decreaseQuantity(product.id));
+      try {
+        await cartApi.decreaseQuantity(product.id, 1);
+        dispatch(decreaseQuantity(product.id));
+      } catch (error) {
+        console.error("Lỗi giảm số lượng:", error);
+      }
     }
   };
 
   const handleClickTrash = async () => {
-    dispatch(removeFromCart(product.id)); // cập nhật Redux
+    try {
+      await cartApi.removeCartItem(product.id);
+      dispatch(removeFromCart(product.id));
+    } catch (error) {
+      console.error("Lỗi xóa sản phẩm:", error);
+    }
   };
 
-  // Điều hướng đến trang chi tiết sản phẩm
   const handleSaveProductSelected = () => {
     navigate("/product-detail/" + product.id);
   };
 
   return (
     <tr className="cursor-pointer hover:bg-slate-100">
-      {/* Hình ảnh sản phẩm */}
       <td className="px-4 py-2" onClick={handleSaveProductSelected}>
         <img
           src={product.image || "kSJLKJKLASJDLAS"}
@@ -45,11 +59,8 @@ const ProductItem2 = ({ product }) => {
           className="h-16 w-16 object-cover"
         />
       </td>
-      {/* Tên sản phẩm */}
       <td className=" px-4 py-2">{product.name}</td>
-      {/* Đơn giá */}
       <td className="px-4 py-2">{formatMoney(product.price || 0)} đ</td>
-      {/* Số lượng (có nút tăng/giảm) */}
       <td className="px-4 py-2 text-center">
         <div className="flex items-center justify-center gap-2">
           <button
@@ -69,11 +80,9 @@ const ProductItem2 = ({ product }) => {
           </button>
         </div>
       </td>
-      {/* Tổng tiền */}
       <td className="px-4 py-2" style={{ width: "150px" }}>
         {formatMoney(product.price * product.quantity || 0)} đ
       </td>
-      {/* Xóa sản phẩm */}
       <td
         className="px-4 py-2 text-center cursor-pointer text-red-500 hover:text-red-700"
         onClick={handleClickTrash}
@@ -85,12 +94,12 @@ const ProductItem2 = ({ product }) => {
 };
 
 ProductItem2.propTypes = {
-  product: Proptyes.shape({
-    id: Proptyes.string.isRequired,
-    image: Proptyes.string.isRequired,
-    name: Proptyes.string.isRequired,
-    price: Proptyes.number.isRequired,
-    quantity: Proptyes.number.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
   }).isRequired,
 };
 
