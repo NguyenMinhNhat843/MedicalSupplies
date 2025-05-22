@@ -6,38 +6,19 @@ import ProductItem2 from "../../components/ProductItem2";
 import cartApi from "../../api/cartApi";
 import productApi from "../../api/productApi";
 import { setCartItems } from "../../redux/slices/cartSlice";
+import { getCartThunk } from "../../redux/slices/cartSlice";
 
 const CartProduct = () => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const reduxCarts = useSelector((state) => state.cart.cartItems);
-  // const [reduxCarts, setReduxCarts] = useState([]);
   useEffect(() => {
-    const fetchCart = async () => {
-      try {
-        if (reduxCarts.length <= 0) {
-          const response = await cartApi.getCart();
+    dispatch(getCartThunk());
+  }, []);
+  const reduxCarts = useSelector((state) => state.cart.cartItems);
+  const loading = useSelector((state) => state.cart.loading);
+  const error = useSelector((state) => state.cart.error);
 
-          if (response.status === 200) {
-            let cartItems = response.data.items;
-            // Làm phẳng mỗi item: merge product vào item chính
-            cartItems = cartItems.map(({ product, ...rest }) => ({
-              ...rest,
-              ...product,
-            }));
-            dispatch(setCartItems(cartItems));
-            setLoading(false);
-          }
-        } else {
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Có lỗi khi lấy giỏ hàng:", error);
-      }
-    };
-
-    fetchCart();
-  }, [dispatch]);
+  console.log("CartProduct", reduxCarts);
+  if (loading) return <p>Đang tải giỏ hàng...</p>;
 
   return (
     <div className="overflow-x-auto">
@@ -54,17 +35,9 @@ const CartProduct = () => {
             </tr>
           </thead>
           <tbody>
-            {loading ? (
-              <tr>
-                <td colSpan="6" className="text-center py-4">
-                  Đang tải...
-                </td>
-              </tr>
-            ) : (
-              reduxCarts.map((cart, index) => (
-                <ProductItem2 key={index} product={cart} />
-              ))
-            )}
+            {reduxCarts.map((cart, index) => (
+              <ProductItem2 key={index} product={cart} />
+            ))}
           </tbody>
         </table>
       ) : (

@@ -14,7 +14,7 @@ import userReducer from "./slices/userSlice";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "auth"], // chỉ lưu slice cart
+  whitelist: ["auth"], // chỉ lưu slice cart
 };
 
 // Combine các reducer

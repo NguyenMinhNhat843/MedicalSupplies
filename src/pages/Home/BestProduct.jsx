@@ -12,9 +12,18 @@ const BestProduct = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await productApi.getAll();
-        setProducts(response);
-        setLoading(false);
+        // Kiểm tra xem sản phẩm đã được lưu trong localStorage chưa
+        const cachedProducts = localStorage.getItem("products");
+        if (cachedProducts) {
+          setProducts(JSON.parse(cachedProducts));
+          setLoading(false);
+          return;
+        } else {
+          const response = await productApi.getAll();
+          setProducts(response);
+          setLoading(false);
+          localStorage.setItem("products", JSON.stringify(response));
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
       }

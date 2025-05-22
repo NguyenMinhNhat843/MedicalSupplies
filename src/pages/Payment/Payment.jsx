@@ -80,7 +80,7 @@ const Payment = () => {
                 <span className="text-red-600">
                   {formatMoney(
                     reduxCarts.reduce((total, item) => {
-                      return total + item.price * item.quantity;
+                      return total + item.product.price * item.quantity;
                     }, 0)
                   )}{" "}
                   đ

@@ -1,6 +1,9 @@
 // component
 import CartProduct from "./CartProduct";
 import CartInfo from "./CartInfo";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartThunk } from "../../redux/slices/cartSlice";
 
 const Cart = () => {
   return (
@@ -10,11 +13,12 @@ const Cart = () => {
         <div className="flex justify-between">
           {/* Danh sách giỏ hàng */}
           <div className="grow w-3/4">
+            {/* <CartProduct reduxCarts={reduxCarts} /> */}
             <CartProduct />
           </div>
           {/* Tổng tiền */}
           <div className="w-1/4 ms-8 border border-slate-200 rounded-lg p-4">
-            <CartInfo />
+            <CartInfo reduxCarts />
           </div>
         </div>
       </div>

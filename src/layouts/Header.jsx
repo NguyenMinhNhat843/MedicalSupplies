@@ -8,16 +8,19 @@ import {
 
 import logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // commponent
 import MenuUser from "../components/Menu/MenuUser";
 import { useEffect, useRef, useState } from "react";
 import SearchBar from "./SearchBar";
+import { getCartThunk } from "../redux/slices/cartSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  const cartsRedux = useSelector((state) => state.cart.cartItems);
+  const cartLength = useSelector((state) => state.cart.total);
+  console.log("cartlength: ", cartLength);
   // console.log("cartsRedux", cartsRedux);
 
   // Đóng / mở Menu user
@@ -39,6 +42,13 @@ const Header = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // fetch carrt item
+  useEffect(() => {
+    if (user) {
+      dispatch(getCartThunk());
+    }
+  }, [user]);
 
   return (
     <div className="flex justify-between items-center px-12 relative bg-white shadow-lg">
@@ -71,12 +81,12 @@ const Header = () => {
             >
               <div className="relative">
                 <FontAwesomeIcon icon={faCartShopping} className="pe-4" />
-                {cartsRedux.length > 0 && (
+                {cartLength > 0 && (
                   <div
                     className="absolute bg-red-600 rounded-full flex justify-center items-center bottom-3 right-1"
                     style={{ width: "20px", height: "20px" }}
                   >
-                    <p className=" ">{cartsRedux.length}</p>
+                    <p className=" ">{cartLength}</p>
                   </div>
                 )}
               </div>
@@ -119,12 +129,12 @@ const Header = () => {
             >
               <div className="relative">
                 <FontAwesomeIcon icon={faCartShopping} className="pe-4" />
-                {cartsRedux.length > 0 && (
+                {cartLength > 0 && (
                   <div
                     className="absolute bg-red-600 rounded-full flex justify-center items-center bottom-3 right-1"
                     style={{ width: "20px", height: "20px" }}
                   >
-                    <p className=" ">{cartsRedux.length}</p>
+                    <p className=" ">{cartLength}</p>
                   </div>
                 )}
               </div>

@@ -8,10 +8,13 @@ import { useSelector } from "react-redux";
 const CartInfo = () => {
   const navigate = useNavigate();
   const reduxCarts = useSelector((state) => state.cart.cartItems);
+  const loading = useSelector((state) => state.cart.loading);
   const handleClickButtonPayment = () => {
     if (reduxCarts.length === 0) return;
     navigate("/payment");
   };
+
+  if (loading) return <p>Đang tải giỏ hàng...</p>;
 
   return (
     <>
@@ -20,7 +23,7 @@ const CartInfo = () => {
         <span className="text-red-600">
           {formatMoney(
             reduxCarts.reduce((total, item) => {
-              return total + item.price * item.quantity;
+              return total + item.product.price || item.price * item.quantity;
             }, 0)
           )}{" "}
           đ

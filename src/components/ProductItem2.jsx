@@ -1,8 +1,6 @@
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
-
-// Utils
 import formatMoney from "../untils/formatMoney";
 import { useDispatch } from "react-redux";
 import {
@@ -11,29 +9,47 @@ import {
   decreaseQuantity,
 } from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router-dom";
-import cartApi from "../api/cartApi"; // ✅ import cartApi
+import cartApi from "../api/cartApi";
+import { useRef } from "react";
+import { debounce } from "lodash";
 
 const ProductItem2 = ({ product }) => {
+  console.log("ProductItem2", product);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const handleIncrease = async () => {
-    try {
-      await cartApi.increaseQuantity(product.id, 1);
-      dispatch(increaseQuantity(product.id));
-    } catch (error) {
-      console.error("Lỗi tăng số lượng:", error);
-    }
+  // Tạo debounce riêng biệt cho tăng và giảm
+  const debouncedIncrease = useRef(
+    debounce(async (id, quantity) => {
+      try {
+        await cartApi.increaseQuantity(id, quantity);
+      } catch (error) {
+        console.error("Lỗi cập nhật tăng số lượng:", error);
+      }
+    }, 500)
+  ).current;
+
+  const debouncedDecrease = useRef(
+    debounce(async (id, quantity) => {
+      try {
+        await cartApi.decreaseQuantity(id, quantity);
+      } catch (error) {
+        console.error("Lỗi cập nhật giảm số lượng:", error);
+      }
+    }, 500)
+  ).current;
+
+  const handleIncrease = () => {
+    const newQuantity = product.quantity + 1;
+    dispatch(increaseQuantity(product.id)); // cập nhật redux
+    debouncedIncrease(product.id, newQuantity); // gọi API sau 500ms
   };
 
-  const handleDecrease = async () => {
+  const handleDecrease = () => {
     if (product.quantity > 1) {
-      try {
-        await cartApi.decreaseQuantity(product.id, 1);
-        dispatch(decreaseQuantity(product.id));
-      } catch (error) {
-        console.error("Lỗi giảm số lượng:", error);
-      }
+      const newQuantity = product.quantity - 1;
+      dispatch(decreaseQuantity(product.id));
+      debouncedDecrease(product.id, newQuantity);
     }
   };
 
@@ -54,13 +70,13 @@ const ProductItem2 = ({ product }) => {
     <tr className="cursor-pointer hover:bg-slate-100">
       <td className="px-4 py-2" onClick={handleSaveProductSelected}>
         <img
-          src={product.image || "kSJLKJKLASJDLAS"}
-          alt={product.name}
+          src={product.product.image || "default.jpg"}
+          alt={product.product.name}
           className="h-16 w-16 object-cover"
         />
       </td>
-      <td className=" px-4 py-2">{product.name}</td>
-      <td className="px-4 py-2">{formatMoney(product.price || 0)} đ</td>
+      <td className="px-4 py-2">{product.product.name}</td>
+      <td className="px-4 py-2">{formatMoney(product.product.price || 0)} đ</td>
       <td className="px-4 py-2 text-center">
         <div className="flex items-center justify-center gap-2">
           <button
@@ -81,7 +97,7 @@ const ProductItem2 = ({ product }) => {
         </div>
       </td>
       <td className="px-4 py-2" style={{ width: "150px" }}>
-        {formatMoney(product.price * product.quantity || 0)} đ
+        {formatMoney(product.product.price * product.quantity || 0)} đ
       </td>
       <td
         className="px-4 py-2 text-center cursor-pointer text-red-500 hover:text-red-700"
