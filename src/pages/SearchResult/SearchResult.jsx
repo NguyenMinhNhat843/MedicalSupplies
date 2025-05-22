@@ -6,6 +6,7 @@ import productApi from "../../api/productApi";
 import Pagination from "../../components/Pagination";
 import { useSelector } from "react-redux";
 import ProductItem from "../../components/ProductItem";
+import { set } from "date-fns";
 
 const SearchResult = () => {
   // Lấy categoryId từ query về
@@ -19,13 +20,19 @@ const SearchResult = () => {
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // fetch Data
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await productApi.getByCategory(categoryId);
-        setProducts(data);
-        setProductsFiltered(data);
+        if (categoryId) {
+          const data = await productApi.getByCategory(categoryId);
+          setProducts(data);
+          setProductsFiltered(data);
+        }
+        if (keyword) {
+          const data = await productApi.searchText(keyword);
+          setProducts(data);
+          setProductsFiltered(data);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -33,7 +40,7 @@ const SearchResult = () => {
     };
 
     fetchData();
-  }, [categoryId]);
+  }, [categoryId, keyword]);
 
   // setup phân trang
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,43 +74,48 @@ const SearchResult = () => {
   }
 
   return (
-    <div className="container mx-auto py-4">
-      <h1 className="font-bold text-2xl py-4">
-        {products.length + " sản phẩm"}
-      </h1>
+    <div className="bg-gradient-to-t from-cyan-100 via-white to-blue-50">
+      <div className="container mx-auto py-4 ">
+        <h1 className="font-bold text-2xl py-4">
+          {products.length + " sản phẩm"}
+        </h1>
 
-      <div className="flex flex-row pb-4">
-        <p className="py-2 px-4 rounded-full bg-blue-400 text-white">
-          {"Máy đo huyết áp"}
-        </p>
-      </div>
-
-      <div className="flex flex-row justify-between">
-        <div>
-          <FilterSideBar products={products} setProduct={setProductsFiltered} />
+        <div className="flex flex-row pb-4">
+          <p className="py-2 px-4 rounded-full bg-blue-400 text-white">
+            {"Máy đo huyết áp"}
+          </p>
         </div>
-        <div className="grow ps-8">
+
+        <div className="flex flex-row justify-between">
           <div>
-            {productsFiltered.length > 0 ? (
-              <div>
-                <div className="grid grid-cols-3 gap-6">
-                  {currentProducts.map((p) => (
-                    <div key={p.id}>
-                      <ProductItem product={p} />
-                    </div>
-                  ))}
+            <FilterSideBar
+              products={products}
+              setProduct={setProductsFiltered}
+            />
+          </div>
+          <div className="grow ps-8">
+            <div>
+              {productsFiltered.length > 0 ? (
+                <div>
+                  <div className="grid grid-cols-3 gap-6">
+                    {currentProducts.map((p) => (
+                      <div key={p.id}>
+                        <ProductItem product={p} />
+                      </div>
+                    ))}
+                  </div>
+                  <Pagination
+                    totalPages={totalPages}
+                    currentPage={currentPage}
+                    onPageChange={handlePageChange}
+                  />
                 </div>
-                <Pagination
-                  totalPages={totalPages}
-                  currentPage={currentPage}
-                  onPageChange={handlePageChange}
-                />
-              </div>
-            ) : (
-              <p className="text-2xl text-slate-300 text-center w-full">
-                Không có sản phẩm nào
-              </p>
-            )}
+              ) : (
+                <p className="text-2xl text-slate-300 text-center w-full">
+                  Không có sản phẩm nào
+                </p>
+              )}
+            </div>
           </div>
         </div>
       </div>

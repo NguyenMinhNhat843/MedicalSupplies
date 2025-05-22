@@ -6,9 +6,13 @@ import categoryApi from "../../api/categoryApi";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import { filterProductByCategory } from "../../redux/slices/productSlice";
+import {
+  filterProductByCategory,
+  setProducts,
+} from "../../redux/slices/productSlice";
 
 const MenuCategory = ({ setIsOpen }) => {
+  const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +42,7 @@ const MenuCategory = ({ setIsOpen }) => {
 
   const navigate = useNavigate();
   const handleClickCategory = (category) => {
+    setIsOpen(false); // Đóng menu
     navigate(`/search/${createSlug(category.name)}?id=${category.id}`);
   };
 

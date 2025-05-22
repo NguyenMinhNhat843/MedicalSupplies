@@ -68,7 +68,10 @@ const FilterSidebar = ({ products, setProduct }) => {
     <div className="w-64 p-4 border rounded-lg bg-white shadow-md">
       <div className="flex justify-between items-center">
         <h2 className="font-bold text-lg">Bộ lọc</h2>
-        <button className="text-blue-600 text-sm" onClick={handleReset}>
+        <button
+          className="text-blue-600 text-sm cursor-pointer"
+          onClick={handleReset}
+        >
           Thiết lập lại
         </button>
       </div>

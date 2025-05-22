@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 // commponent
 import MenuUser from "../components/Menu/MenuUser";
 import { useEffect, useRef, useState } from "react";
+import SearchBar from "./SearchBar";
 
 const Header = () => {
   const user = useSelector((state) => state.auth.user);
@@ -42,18 +43,24 @@ const Header = () => {
   return (
     <div className="flex justify-between items-center px-12 relative bg-white shadow-lg">
       {/* logo */}
-      <Link to="/" className="w-25 h-full">
-        <img src={logo} alt="logo" />
-      </Link>
-      <div className="grow ps-4">
-        <Link to={"/"} className="font-semibold pe-6">
-          Home
+      <div className="flex justify-between items-center relative">
+        <Link to="/" className="w-25 h-full">
+          <img src={logo} alt="logo" />
         </Link>
-        <Link to={"/"} className="font-semibold">
-          Về chúng tôi
-        </Link>
+        <div className="grow ps-4">
+          <Link to={"/"} className="font-semibold pe-6">
+            Home
+          </Link>
+          <Link to={"/"} className="font-semibold">
+            Về chúng tôi
+          </Link>
+        </div>
       </div>
-      {/*  */}
+      {/* search bar */}
+      <div className="grow mx-12">
+        <SearchBar />
+      </div>
+      {/* right section */}
       <div className="flex justify-between items-center cursor-pointer relative">
         {user ? (
           <>

@@ -56,7 +56,8 @@ const MainLayout = () => {
   return (
     <>
       {!shouldHideHeaderFooter && <Header />}
-      {!shouldHideHeaderFooter && !shouldHideSearchBar && <SearchBar />}
+      {/* {!shouldHideHeaderFooter && !shouldHideSearchBar && <SearchBar />} */}
+      {!shouldHideHeaderFooter && !shouldHideSearchBar}
       <div className="min-h-screen">
         <Outlet />
       </div>

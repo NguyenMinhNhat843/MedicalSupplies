@@ -20,6 +20,13 @@ const productApi = {
     return response.data;
   },
 
+  searchText: async (text) => {
+    const response = await axios.get(
+      `${baseUrl}/api/products/search?keyword=${text}`
+    );
+    return response.data;
+  },
+
   create: async (productData) => {
     const response = await axios.post(`${baseUrl}/api/products`, productData);
     return response.data;

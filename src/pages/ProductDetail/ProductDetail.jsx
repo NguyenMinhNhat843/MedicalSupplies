@@ -34,7 +34,7 @@ const ProductDetail = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="bg-gradient-to-t from-cyan-100 via-white to-blue-50">
+    <div className="bg-gradient-to-l from-cyan-100 via-white to-blue-50">
       <div className="container mx-auto py-8 ">
         {/* Hiển thị thông tin sản phẩm nếu có */}
         {product && (
